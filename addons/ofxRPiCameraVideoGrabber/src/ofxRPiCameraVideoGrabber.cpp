@@ -99,7 +99,13 @@ void ofxRPiCameraVideoGrabber::setup(int videoWidth=1280, int videoHeight=720, i
 	
 	OMX_SetConfig(camera, OMX_IndexConfigVideoFramerate, &framerateConfig);
 	
+
+	//mirror
+	setMirrorMode(OMX_MirrorNone);
 	
+
+
+
 	setExposureMode(OMX_ExposureControlAuto);
 	setMeteringMode(OMX_MeteringModeAverage);
 	setSharpness(-50);
@@ -122,6 +128,31 @@ void ofxRPiCameraVideoGrabber::setup(int videoWidth=1280, int videoHeight=720, i
 	enableFaceDetection();
 	
 }
+void ofxRPiCameraVideoGrabber::setMirrorMode(OMX_MIRRORTYPE eMirror){
+	OMX_ERRORTYPE errorMirror = OMX_ErrorNone;
+
+	//OMX_MirrorNone;
+	//OMX_MirrorHorizontal;
+	//OMX_MirrorVertical;
+	//OMX_MirrorBoth;
+
+	OMX_CONFIG_MIRRORTYPE mirror;
+	OMX_INIT_STRUCTURE(mirror);
+	mirror.nPortIndex = 71;
+   	mirror.eMirror = eMirror;
+	errorMirror = OMX_SetConfig(camera, OMX_IndexConfigCommonMirror, &mirror);
+	
+	if(errorMirror != OMX_ErrorNone) 
+	{
+		ofLog(OF_LOG_ERROR, "camera error trying mirror: 0x%08x", error);
+	}else
+	{
+		ofLogVerbose(__func__) << "modo mirror  PASS!!!!!!!! ";
+	
+	}
+
+}
+
 
 void ofxRPiCameraVideoGrabber::enableFaceDetection()
 {
