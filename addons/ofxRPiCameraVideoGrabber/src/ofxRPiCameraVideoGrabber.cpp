@@ -101,7 +101,7 @@ void ofxRPiCameraVideoGrabber::setup(int videoWidth=1280, int videoHeight=720, i
 	
 
 	//mirror
-	setMirrorMode(OMX_MirrorNone);
+	setMirrorMode(OMX_MirrorVertical);
 	
 
 
@@ -138,16 +138,16 @@ void ofxRPiCameraVideoGrabber::setMirrorMode(OMX_MIRRORTYPE eMirror){
 
 	OMX_CONFIG_MIRRORTYPE mirror;
 	OMX_INIT_STRUCTURE(mirror);
-	mirror.nPortIndex = 71;
+	mirror.nPortIndex = CAMERA_OUTPUT_PORT;
    	mirror.eMirror = eMirror;
 	errorMirror = OMX_SetConfig(camera, OMX_IndexConfigCommonMirror, &mirror);
 	
 	if(errorMirror != OMX_ErrorNone) 
 	{
-		ofLog(OF_LOG_ERROR, "camera error trying mirror: 0x%08x", error);
+		ofLog(OF_LOG_ERROR, "camera mirror eerror: 0x%08x", errorMirror);
 	}else
 	{
-		ofLogVerbose(__func__) << "modo mirror  PASS!!!!!!!! ";
+		ofLogVerbose(__func__) << "mirror mode  PASS!!!!!!!! "; // not called? but works
 	
 	}
 
