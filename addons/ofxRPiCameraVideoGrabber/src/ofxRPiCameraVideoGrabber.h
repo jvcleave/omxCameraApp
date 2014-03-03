@@ -41,6 +41,8 @@ public:
 	void setWhiteBalance(OMX_WHITEBALCONTROLTYPE controlType);
 	void setColorEnhancement(bool doColorEnhance, int U=128, int V=128);
 	void setLEDStatus(bool status);
+
+	void setMirrorMode(OMX_MIRRORTYPE eMirror);
 	
 	GLuint getTextureID();
 	
